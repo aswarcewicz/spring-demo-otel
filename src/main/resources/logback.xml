@@ -3,12 +3,16 @@
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
-                %d{yyyy-MM-dd HH:mm:ss.SSS} | [Gateway,%X{traceId:-},%X{spanId:-}] | %-5level | %logger{36} | %msg%n
+                %d{yyyy-MM-dd HH:mm:ss.SSS} | [Gateway,%X{traceId},%X{spanId}] [%X{user_id}] | %-5level | %logger{36} | %msg%n
             </pattern>
         </encoder>
     </appender>
     <appender name="OpenTelemetry"
-              class="io.opentelemetry.instrumentation.logback.appender.v1_0.OpenTelemetryAppender">
+              class="io.opentelemetry.instrumentation.logback.appender.v1_0.OpenTelemetryAppender"
+              >
+        <captureMdcAttributes>
+            userId
+        </captureMdcAttributes>
     </appender>
     <logger name="org.springframework.security.web.server.savedrequest" level="DEBUG">
         <appender-ref ref="console"/>

@@ -13,12 +13,19 @@ java {
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://repo.spring.io/snapshot")
+        mavenContent {
+            snapshotsOnly()
+        }
+    }
 }
 
 dependencyManagement {
     imports {
         mavenBom("io.opentelemetry:opentelemetry-bom:1.34.1")
         mavenBom("io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom-alpha:2.0.0-alpha")
+        mavenBom("io.micrometer:micrometer-tracing-bom:1.2.3-SNAPSHOT")
     }
 }
 
