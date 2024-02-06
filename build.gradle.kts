@@ -23,8 +23,6 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom("io.opentelemetry:opentelemetry-bom:1.34.1")
-        mavenBom("io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom-alpha:2.0.0-alpha")
         mavenBom("io.micrometer:micrometer-tracing-bom:1.2.3-SNAPSHOT")
     }
 }
@@ -47,9 +45,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("io.micrometer:micrometer-tracing")
     implementation("io.micrometer:micrometer-tracing-bridge-otel")
-
-    implementation("io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter")
-    implementation("io.opentelemetry.instrumentation:opentelemetry-spring-webflux-5.3")
 }
 
 

@@ -11,5 +11,4 @@ public class DemoOtelApplication {
         SpringApplication.run(DemoOtelApplication.class, args);
         Hooks.enableAutomaticContextPropagation();
     }
-
 }

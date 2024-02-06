@@ -1,24 +1,7 @@
-otel:
-  logs:
-    exporter: otlp,logging
-  traces:
-    sampler: always_on
-    exporter: otlp,logging
-  metrics:
-    exporter: otlp,logging
-  service:
-    name: gateway
-  exporter:
-    otlp:
-      enabled: true
-      endpoint: http://localhost:4317
-      protocol: grpc
-    logging:
-      enabled: true
-
 management:
   tracing:
     baggage:
       correlation:
         fields:
+          - session
           - user_id

@@ -11,21 +11,19 @@ import reactor.core.publisher.Mono;
 
 @Component
 @Slf4j
-public class AccessLogging implements OrderedWebFilter {
+public class PrincipalLogging implements OrderedWebFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange,
                              WebFilterChain chain) {
         return Mono.justOrEmpty("")
-                .doOnNext(e -> log.info(">> requestUri=[{}]", exchange.getRequest().getURI()))
+                .doOnNext(e -> log.info(">> appending user_id"))
                 .flatMap(z -> chain.filter(exchange))
-                .doOnSuccess(result -> log.info("<< Service successfully returns result, statusCode=[{}]", exchange.getResponse().getStatusCode()))
-                .doOnError(throwable -> log.error("<< Service error result msg=[{}]", throwable.getMessage()))
-                .contextWrite(ReactorBaggage.append("session", "MockedSessionValue"));
+                .contextWrite(ReactorBaggage.append("user_id", "MockedUserId"));
     }
 
     @Override
     public int getOrder() {
-        return SecurityWebFiltersOrder.FIRST.getOrder();
+        return SecurityWebFiltersOrder.SECURITY_CONTEXT_SERVER_WEB_EXCHANGE.getOrder() + 1;
     }
 }
